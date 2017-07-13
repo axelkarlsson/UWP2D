@@ -1,0 +1,2 @@
+MainPackage=C:\Users\ABB\documents\visual studio 2017\Projects\XAMLtest\XAMLtest\bin\x86\Release\XAMLtest_1.0.2.0_x86.appx
+SymbolPackage=C:\Users\ABB\documents\visual studio 2017\Projects\XAMLtest\XAMLtest\AppPackages\XAMLtest_1.0.2.0_Test\XAMLtest_1.0.2.0_x86.appxsym
