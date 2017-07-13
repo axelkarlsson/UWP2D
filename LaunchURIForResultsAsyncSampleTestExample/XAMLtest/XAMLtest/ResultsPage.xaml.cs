@@ -54,8 +54,12 @@ namespace XAMLtest
             }
         }
 
-            
-        
+
+        private void Popout_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri("Package.GetProtocolName"));
+            Application.Current.Exit();
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

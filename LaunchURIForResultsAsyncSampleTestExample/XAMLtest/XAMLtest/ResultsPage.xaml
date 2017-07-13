@@ -10,5 +10,6 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="{Binding textBoxxy}" Width="500" Height="50"/>
         <Button Content="Return to sender" Height="40" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Popout" Height="40" Width="40" HorizontalAlightment="Right" VerticalAlignment="Top" Click ="Popout_Click" Margin="0,40,0,0"/>
     </Grid>
 </Page>
