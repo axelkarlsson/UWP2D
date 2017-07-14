@@ -22015,10 +22015,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ABB\\Documents\\Visual Studio 2017\\Projects\\App2\\App2\\App2.csproj",
+      "projectUniqueName": "C:\\Users\\ABB\\documents\\visual studio 2017\\Projects\\App2\\App2\\App2.csproj",
       "projectName": "App2",
-      "projectPath": "C:\\Users\\ABB\\Documents\\Visual Studio 2017\\Projects\\App2\\App2\\App2.csproj",
-      "outputPath": "C:\\Users\\ABB\\Documents\\Visual Studio 2017\\Projects\\App2\\App2\\obj\\",
+      "projectPath": "C:\\Users\\ABB\\documents\\visual studio 2017\\Projects\\App2\\App2\\App2.csproj",
+      "outputPath": "C:\\Users\\ABB\\documents\\visual studio 2017\\Projects\\App2\\App2\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "uap10.0.10240"

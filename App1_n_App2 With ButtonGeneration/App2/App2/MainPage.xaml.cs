@@ -34,12 +34,19 @@ namespace App2
             new Uri("holo:///"),
             new Uri("holo:///"),
             new Uri("holo:///"),
+            new Uri("holo:///"),
+            new Uri("holo:///"),
             new Uri("holo:///")
         };
+        private Windows.System.ProtocolForResultsOperation _operation = null;
+        private ValueSet result;
+
         public MainPage()
         {
+
             this.InitializeComponent();
-            int RowCounter = 0;
+            result = new ValueSet();
+            int RowCounter = 1;
             int ColumnCounter = 0;
             int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(UriList).Count));
             int Cmax = Rmax;
@@ -101,9 +108,15 @@ namespace App2
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var v = e.Parameter as ProtocolActivatedEventArgs;
-            //UriList = ReadFromBinaryFile<List<Uri>>(v.Uri.LocalPath);
+            var protocolForResultsArgs = e.Parameter as ProtocolForResultsActivatedEventArgs;
+            _operation = protocolForResultsArgs.ProtocolForResultsOperation;
+            result.Clear();
         }
+        private void ReturnToPathfinder(object sender, RoutedEventArgs e)
+        {
+            _operation.ReportCompleted(result);
+        }
+
         /// <summary>
         /// Reads an object instance from a binary file.
         /// </summary>

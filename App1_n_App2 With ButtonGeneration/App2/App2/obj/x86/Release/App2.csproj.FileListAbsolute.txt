@@ -382,3 +382,9 @@ C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\obj\x86\Release\ilc
 C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\obj\x86\Release\ilc\intermediate\sgargs.rsp
 C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\obj\x86\Release\ilc\intermediate\TransformedSRWR\System.Runtime.WindowsRuntime.dll
 C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\obj\x86\Release\ilc\intermediate\TransformedSRWR\System.Runtime.WindowsRuntime.dll.ILTransformTask.repro
+C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ExampleGraph.xbf
+C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\obj\x86\Release\App2.csprojResolveAssemblyReference.cache
+C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\obj\x86\Release\ExampleGraph.g.i.cs
+C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\obj\x86\Release\ExampleGraph.g.cs
+C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\obj\x86\Release\ExampleGraph.xaml
+C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\obj\x86\Release\ExampleGraph.xbf

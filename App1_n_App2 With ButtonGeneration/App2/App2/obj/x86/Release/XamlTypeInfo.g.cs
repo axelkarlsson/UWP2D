@@ -132,15 +132,17 @@ namespace App2.App2_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[3];
-            _typeNameTable[0] = "App2.MainPage";
+            _typeNameTable = new string[4];
+            _typeNameTable[0] = "App2.BlankPage1";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[3] = "App2.MainPage";
 
-            _typeTable = new global::System.Type[3];
-            _typeTable[0] = typeof(global::App2.MainPage);
+            _typeTable = new global::System.Type[4];
+            _typeTable[0] = typeof(global::App2.BlankPage1);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[3] = typeof(global::App2.MainPage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -175,7 +177,8 @@ namespace App2.App2_XamlTypeInfo
             return -1;
         }
 
-        private object Activate_0_MainPage() { return new global::App2.MainPage(); }
+        private object Activate_0_BlankPage1() { return new global::App2.BlankPage1(); }
+        private object Activate_3_MainPage() { return new global::App2.MainPage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -187,9 +190,9 @@ namespace App2.App2_XamlTypeInfo
             switch (typeIndex)
             {
 
-            case 0:   //  App2.MainPage
+            case 0:   //  App2.BlankPage1
                 userType = new global::App2.App2_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_0_MainPage;
+                userType.Activator = Activate_0_BlankPage1;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -200,6 +203,13 @@ namespace App2.App2_XamlTypeInfo
 
             case 2:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::App2.App2_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 3:   //  App2.MainPage
+                userType = new global::App2.App2_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_3_MainPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
                 break;
             }
             return xamlType;

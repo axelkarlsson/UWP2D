@@ -10,61 +10,61 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>41974e34-60ce-4ebf-a2db-4aaabb508e48</PackageIdentityName>
     <PackageIdentityPublisher>CN=ABB</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\obj\x86\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\obj\x86\Release\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\AppX</LayoutDir>
+    <LayoutDir>C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\App2.dll">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\App2.dll">
       <PackagePath>App2.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\App2.exe">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\App2.exe">
       <PackagePath>App2.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\App2.pdb">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\App2.pdb">
       <PackagePath>App2.pdb</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\clrcompression.dll">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\clrcompression.dll">
       <PackagePath>clrcompression.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\ABB\Documents\Visual Studio 2017\Projects\App2\App2\bin\x86\Release\ilc\resources.pri">
+    <AppxPackagedFile Include="C:\Users\ABB\documents\visual studio 2017\Projects\App2\App2\bin\x86\Release\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
