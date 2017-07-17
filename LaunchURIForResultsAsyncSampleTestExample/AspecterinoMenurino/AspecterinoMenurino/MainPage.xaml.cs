@@ -100,7 +100,7 @@ namespace AspecterinoMenurino
                     result.Clear();
                     for (int i = 0; i < UriList.Count; i++)
                     {
-                        UriList[i] = new Uri(UriList[i].Scheme + forResultArgs.Data["ID"] + UriList[i].AbsoluteUri);
+                        UriList[i] = new Uri(UriList[i].Scheme + "://" + forResultArgs.Data["ID"] + UriList[i].AbsolutePath);
                     }
                 }
             }
