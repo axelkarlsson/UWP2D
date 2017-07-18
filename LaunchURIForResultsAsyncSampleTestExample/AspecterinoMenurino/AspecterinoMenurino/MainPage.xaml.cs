@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
@@ -26,34 +27,55 @@ namespace AspecterinoMenurino
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        List<Uri> UriList = new List<Uri>
+
+        private class UriElement
         {
-            new Uri("holoabbtest:///Aspect_A"),
-            new Uri("holoabbtest:///Aspect_B"),
-            new Uri("holoabbtest:///Aspect_C"),
-            new Uri("holoabbtest:///Aspect_D"),
-            new Uri("holoabbtest:///Aspect_E"),
-            new Uri("holoabbtest:///Aspect_F"),
-            new Uri("holoabbtest:///Aspect_G"),
-            new Uri("holoabbtest:///Aspect_H"),
-            new Uri("holoabbtest:///Aspect_Secrets")
-        };
+            public string uriScheme;
+            public string packageName;
+        }
+
+        List<Uri> uriList;
         private Windows.System.ProtocolForResultsOperation _operation = null;
         private ValueSet result;
+        private Dictionary<string, string> uriDict = new Dictionary<string, string>();
+
+
 
         public MainPage()
         {
 
             this.InitializeComponent();
             result = new ValueSet();
-            
+            uriList = new List<Uri>();
+            readConfig();
+
         }
+
+        void readConfig()
+        {
+            string fullPath = Path.Combine(Package.Current.InstalledLocation.Path, "cfg.xml");
+            XDocument loadedUris = XDocument.Load(fullPath);
+
+            var data = from query in loadedUris.Descendants("uri")
+                       select new UriElement
+                       {
+                           uriScheme = (string)query.Element("scheme"),
+                           packageName = (string)query.Element("packagename")
+                       };
+            foreach(UriElement u in data)
+            {
+                uriDict[u.uriScheme] = u.packageName;
+                uriList.Add(new Uri(u.uriScheme + ":///"));
+            }
+        }
+
         private ColumnDefinition CD()
         {
             ColumnDefinition tmp = new ColumnDefinition();
             tmp.Width = new GridLength(1, GridUnitType.Star);
             return tmp;
         }
+
         private RowDefinition RD()
         {
             RowDefinition tmp = new RowDefinition();
@@ -66,11 +88,17 @@ namespace AspecterinoMenurino
             Button b = sender as Button;
             Windows.System.LauncherOptions opt = new Windows.System.LauncherOptions();
             opt.DisplayApplicationPicker = false;
-            opt.TargetApplicationPackageFamilyName = "2e60fe6a-1684-4052-b8c6-bf1ac7a95844_mv85jss3rj790";
+            Uri u = new Uri(b.Tag as string);
+            /*
+            if (u.Scheme == "holoabbtest") { opt.TargetApplicationPackageFamilyName = "2e60fe6a-1684-4052-b8c6-bf1ac7a95844_mv85jss3rj790"; }
+            else if (u.Scheme == "holoabb-docs") { opt.TargetApplicationPackageFamilyName = "149de791-5e92-4412-addd-8f702f98d307_mv85jss3rj790"; }
+            */
+            opt.TargetApplicationPackageFamilyName = uriDict[u.Scheme];
             opt.DesiredRemainingView = Windows.UI.ViewManagement.ViewSizePreference.UseMore;
             ValueSet inputData = new ValueSet();
             inputData["Test"] = b.Tag.ToString();
-            Windows.System.LaunchUriResult success = await Windows.System.Launcher.LaunchUriForResultsAsync(new Uri("holoabbtest://"), opt, inputData);
+            inputData["docs"] = "hololens.pdf";
+            Windows.System.LaunchUriResult success = await Windows.System.Launcher.LaunchUriForResultsAsync(u, opt, inputData);
  
         }
 
@@ -98,18 +126,18 @@ namespace AspecterinoMenurino
                 {
                     _operation = forResultArgs.ProtocolForResultsOperation;
                     result.Clear();
-                    for (int i = 0; i < UriList.Count; i++)
+                    for (int i = 0; i < uriList.Count; i++)
                     {
-                        UriList[i] = new Uri(UriList[i].Scheme + "://" + forResultArgs.Data["ID"] + UriList[i].AbsolutePath);
+                        uriList[i] = new Uri(uriList[i].Scheme + "://" + forResultArgs.Data["ID"] + uriList[i].AbsolutePath);
                     }
                 }
             }
 
             int RowCounter = 1;
             int ColumnCounter = 0;
-            int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(UriList).Count));
+            int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(uriList).Count));
             int Cmax = Rmax;
-            foreach (Button b in GenerateButtons(UriList))
+            foreach (Button b in GenerateButtons(uriList))
             {
                 BackGrid.Children.Add(b);
                 Grid.SetColumn(b, ColumnCounter);

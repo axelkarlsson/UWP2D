@@ -1,0 +1,11 @@
+<?xml version ="1.0" encoding="utf-8" ?>
+<urilist>
+  <uri>
+    <scheme>holoabb-docs</scheme>
+    <packagename>149de791-5e92-4412-addd-8f702f98d307_mv85jss3rj790</packagename>
+  </uri>
+  <uri>
+    <scheme>holoabbtest</scheme>
+    <packagename>2e60fe6a-1684-4052-b8c6-bf1ac7a95844_mv85jss3rj790</packagename>
+  </uri>
+</urilist>
