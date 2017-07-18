@@ -46,8 +46,7 @@
             <uap:DisplayName>Hololens Deeptesting</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
-      </Extensions>
-    </Application>
+      </Extensions></Application>
   </Applications>
 
   <Capabilities>
