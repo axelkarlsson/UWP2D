@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="BackGrid">
+    <Grid Background="Black" Name="BackGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
@@ -15,5 +15,7 @@
         <Button Grid.Row="0" Content="Return to Pathfinding" Click="ReturnToPathfinder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             
         </Button>
+        <Polyline Points="0,1,2,3,4,5,6,7,8,9,10,11">
+        </Polyline>
     </Grid>
 </Page>

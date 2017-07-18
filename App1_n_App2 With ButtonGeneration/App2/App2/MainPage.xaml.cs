@@ -15,7 +15,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Diagnostics;
 using Windows.Storage;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -40,7 +45,6 @@ namespace App2
         };
         private Windows.System.ProtocolForResultsOperation _operation = null;
         private ValueSet result;
-
         public MainPage()
         {
 
@@ -106,17 +110,19 @@ namespace App2
             }
             return tmp;
         }
+        /*
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var protocolForResultsArgs = e.Parameter as ProtocolForResultsActivatedEventArgs;
             _operation = protocolForResultsArgs.ProtocolForResultsOperation;
             result.Clear();
         }
+        */
         private void ReturnToPathfinder(object sender, RoutedEventArgs e)
         {
-            _operation.ReportCompleted(result);
+           // _operation.ReportCompleted(result);
         }
-
+        
         /// <summary>
         /// Reads an object instance from a binary file.
         /// </summary>
