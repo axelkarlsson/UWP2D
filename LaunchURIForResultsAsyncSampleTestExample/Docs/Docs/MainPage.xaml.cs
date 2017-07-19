@@ -32,6 +32,7 @@ namespace Docs
             this.InitializeComponent();
             text = new TextObject();
             DataContext = text;
+            ReadPDF("test");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -43,14 +44,15 @@ namespace Docs
                 if(resArgs.Data.ContainsKey("docs"))
                 {
                     string fileName = resArgs.Data["docs"] as string;
-                    readPDF(fileName);
+                    ReadPDF(fileName);
                 }
             }
         }
 
-        async void readPDF(string fileName)
+        async void ReadPDF(string fileName)
         {
             var packageFolder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+
             /*
             var files = await packageFolder.GetFilesAsync();
             foreach (var file in files)
@@ -59,9 +61,11 @@ namespace Docs
                 
             }
             */
+            
             var pdfFile = await packageFolder.GetFileAsync(fileName);
             await Windows.System.Launcher.LaunchFileAsync(pdfFile);
             _operation.ReportCompleted(new ValueSet());
+            
         }
     }
 

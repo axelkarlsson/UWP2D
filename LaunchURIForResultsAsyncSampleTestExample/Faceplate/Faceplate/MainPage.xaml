@@ -1,0 +1,403 @@
+﻿<Page
+    x:Class="Faceplate.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Faceplate"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" 
+              Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.ColumnSpan="3" 
+                   HorizontalAlignment="Stretch" 
+                   VerticalAlignment="Stretch"
+                   Source="Assets/wholething.png">
+            </Image>
+            <Grid Name="Menu_Grid"
+                  Grid.Column="0"
+                  BorderBrush="Black" 
+                  BorderThickness="10"  
+                  Visibility="Collapsed" 
+                  Background="DarkGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Click="Button_Click_2" Content="X" VerticalAlignment="Top" HorizontalAlignment="Right"></Button>
+                <TextBlock Grid.Row="0" Text="↑" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="65" PointerEntered="Menu_ScaleUP"/>
+                <TextBlock Grid.Row="1" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Name="Menu_Item_1"/>
+                <TextBlock Grid.Row="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Name="Menu_Item_2"/>
+                <TextBlock Grid.Row="3" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Name="Menu_Item_3"/>
+                <TextBlock Grid.Row="4" Text="↓" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="65" PointerEntered="Menu_ScaleDOWN"/>
+
+            </Grid>
+            <Grid Name="Item_Grid"
+                  Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" 
+                        Grid.Row="1" 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
+                        Background="Transparent"                    
+                        Click="Button_Click_4">
+                    <Button.Flyout>
+                        <Flyout Placement="Bottom" x:Name="OptionsFlyout" >
+                            <Flyout.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Show Options" 
+                                               FontSize="14"
+                                               PointerEntered="OpenOptions" 
+                                               Grid.Column="0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="Show Document" 
+                                               FontSize="14"
+                                               PointerEntered="OpenDocument"
+                                               Grid.Column="4"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="←"
+                                               FontSize="25" 
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="→"
+                                               FontSize="25" 
+                                               Grid.Column="3"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="↓"
+                                               FontSize="25" 
+                                               Grid.Column="2"
+                                               Grid.Row="1"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="Show Faceplate"
+                                               FontSize="14"
+                                               PointerEntered="Button_Click" 
+                                               Grid.Row="2"
+                                               Grid.Column="2" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+
+                                </Grid>
+                            </Flyout.Content>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
+            <Grid Name="Document_Grid" 
+                  Grid.Column="2"
+                  BorderBrush="Black" 
+                  BorderThickness="10" 
+                  Background="DarkGray" 
+                  Visibility="Collapsed">
+
+                <Button Click="Button_Click_1" Content="X" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                <Image Source="Assets/Documenbt.jpg"></Image>
+            </Grid>
+        </Grid>
+        <Grid Name="Faceplate_Holder" 
+              Visibility="Collapsed"
+              Background="Gray"
+              Grid.Row="1"
+              BorderBrush="Black" 
+              BorderThickness="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.5*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="LC_1"/>
+                <Image Grid.Column="0" Grid.Row="1">
+                    <Image.Source>
+                        <ImageSource>
+                            Assets/Warning.png
+                        </ImageSource>
+                    </Image.Source>
+                </Image>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    </CheckBox>
+                    <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+                        <Image>
+                            <Image.Source>
+                                <ImageSource>Assets/Hand.png</ImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+                        <Image>
+                            <Image.Source>
+                                <ImageSource>Assets/Spiral.png</ImageSource>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Image.Source>
+                            <ImageSource>Assets/Hand.png</ImageSource>
+                        </Image.Source>
+                    </Image>
+                    <Image Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Image.Source>
+                            <ImageSource>Assets/Hand.png</ImageSource>
+                        </Image.Source>
+                    </Image>
+                    <Image Grid.Column="3" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Image.Source>
+                            <ImageSource>Assets/Spiral.png</ImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="8*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Image.Source>
+                            <ImageSource>
+                                Assets/Spiral.png
+                            </ImageSource>
+                        </Image.Source>
+                    </Image>
+                    <Image Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Image.Source>
+                            <ImageSource>
+                                Assets/Hand.png
+                            </ImageSource>
+                        </Image.Source>
+                    </Image>
+                    <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="0">
+                        <Image.Source>
+                            <ImageSource>
+                                Assets/Spiral.png
+                            </ImageSource>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock               Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Top"    Text="100.00" FontSize="12"/>
+                        <TextBlock               Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Text="0.00" FontSize="12"/>
+                        <TextBlock               Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Text="Pv" FontSize="12"/>
+                        <TextBlock               Grid.Column="2" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Text="Sp" FontSize="12"/>
+                        <Slider Name="Pv_Slider" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical" Value="50" />
+                        <Slider Name="Sp_Slider" Grid.Column="2" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical" Value="50" />
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Slider Grid.Row="1" Value="50" Name="Out_Slider"/>
+                        <TextBlock Grid.Row="2" Text="0.00" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12"></TextBlock>
+                        <TextBlock Grid.Row="2" Text="100.00" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12"></TextBlock>
+                        <TextBlock Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Text="Out" FontSize="12"></TextBlock>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Pv" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Sp" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Deviatons" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Out" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding ElementName=Pv_Slider,Path=Value}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding ElementName=Sp_Slider,Path=Value}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+                    <Slider    Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Value="50" />
+                    <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding ElementName=Out_Slider,Path=Value}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="100.00" HorizontalAlignment="Right"  VerticalAlignment="Top"     Margin="0,10,0,0" FontSize="12"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="95.00"  HorizontalAlignment="Left"   VerticalAlignment="Top"     Margin="0,10,0,0" FontSize="12"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="50.00"  HorizontalAlignment="Right"  VerticalAlignment="Center"  Margin="0,0,0,0"  FontSize="12"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="47.50"  HorizontalAlignment="Left"   VerticalAlignment="Center"  Margin="0,0,0,0"  FontSize="12"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="0.00"   HorizontalAlignment="Right"  VerticalAlignment="Bottom"  Margin="0,0,0,10" FontSize="12"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="0.00"   HorizontalAlignment="Left"   VerticalAlignment="Bottom"  Margin="0,0,0,10" FontSize="12"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="-5m"    HorizontalAlignment="Left"   VerticalAlignment="Top"     Margin="20,0,0,0" FontSize="12"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="-2.5m"  HorizontalAlignment="Center" VerticalAlignment="Top"     Margin="0,0,0,0"  FontSize="12"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="Now"    HorizontalAlignment="Right"  VerticalAlignment="Top"     Margin="0,0,20,0" FontSize="12"/>
+
+                <Grid Grid.Column="1" Grid.Row="0" Background="Transparent" Margin="10,10,10,10" BorderBrush="Black" BorderThickness="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="0.5"/>
+                    <Line Stroke="Black" StrokeThickness="1" X1="0" X2="140" Y1="70" Y2="0" Grid.ColumnSpan="3" Grid.RowSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                </Grid>
+                <Grid Grid.Column="2" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click_3" Content="X">
+                    </Button>
+                    <Image Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Image.Source>
+                            <ImageSource>
+                                Assets/Hand.png
+                            </ImageSource>
+                        </Image.Source>
+                    </Image>
+                    <Image Grid.Row="2" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Image.Source>
+                            <ImageSource>
+                                Assets/Spiral.png
+                            </ImageSource>
+                        </Image.Source>
+                    </Image>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Pv" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Sp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Out" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11"></TextBlock>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

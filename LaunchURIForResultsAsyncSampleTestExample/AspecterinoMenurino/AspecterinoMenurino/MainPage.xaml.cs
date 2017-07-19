@@ -17,11 +17,41 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.System;
 using Windows.Storage;
+using System.ComponentModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace AspecterinoMenurino
 {
+
+    public class TextObject : INotifyPropertyChanged
+    {
+        private string dataString;
+        public string displayText
+        {
+            get
+            {
+                return dataString;
+            }
+            set
+            {
+                dataString = value;
+                OnPropertyChanged("displayText");
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+    }
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -32,12 +62,15 @@ namespace AspecterinoMenurino
         {
             public string uriScheme;
             public string packageName;
+            public string displayName;
         }
 
         List<Uri> uriList;
         private Windows.System.ProtocolForResultsOperation _operation = null;
         private ValueSet result;
-        private Dictionary<string, string> uriDict = new Dictionary<string, string>();
+
+        //The key is the Uri-scheme, the first item is the package name and the second item is the display name
+        private Dictionary<string, ValueTuple<string, string>> uriDict = new Dictionary<string , ValueTuple<string,string>>();
 
 
 
@@ -60,11 +93,12 @@ namespace AspecterinoMenurino
                        select new UriElement
                        {
                            uriScheme = (string)query.Element("scheme"),
-                           packageName = (string)query.Element("packagename")
+                           packageName = (string)query.Element("packagename"),
+                           displayName = (string)query.Element("displayname")
                        };
             foreach(UriElement u in data)
             {
-                uriDict[u.uriScheme] = u.packageName;
+                uriDict[u.uriScheme] = (u.packageName, u.displayName);
                 uriList.Add(new Uri(u.uriScheme + ":///"));
             }
         }
@@ -86,19 +120,16 @@ namespace AspecterinoMenurino
         private async void ProcessStartAsync(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
-            Windows.System.LauncherOptions opt = new Windows.System.LauncherOptions();
-            opt.DisplayApplicationPicker = false;
+            LauncherOptions opt = new LauncherOptions()
+            {
+                DisplayApplicationPicker = false
+            };
             Uri u = new Uri(b.Tag as string);
-            /*
-            if (u.Scheme == "holoabbtest") { opt.TargetApplicationPackageFamilyName = "2e60fe6a-1684-4052-b8c6-bf1ac7a95844_mv85jss3rj790"; }
-            else if (u.Scheme == "holoabb-docs") { opt.TargetApplicationPackageFamilyName = "149de791-5e92-4412-addd-8f702f98d307_mv85jss3rj790"; }
-            */
-            opt.TargetApplicationPackageFamilyName = uriDict[u.Scheme];
-            opt.DesiredRemainingView = Windows.UI.ViewManagement.ViewSizePreference.UseMore;
+            opt.TargetApplicationPackageFamilyName = uriDict[u.Scheme].Item1;
             ValueSet inputData = new ValueSet();
             inputData["Test"] = b.Tag.ToString();
             inputData["docs"] = "hololens.pdf";
-            Windows.System.LaunchUriResult success = await Windows.System.Launcher.LaunchUriForResultsAsync(u, opt, inputData);
+            LaunchUriResult success = await Launcher.LaunchUriForResultsAsync(u, opt, inputData);
  
         }
 
@@ -110,7 +141,7 @@ namespace AspecterinoMenurino
                 Button b = new Button();
                 b.Tag = u.AbsoluteUri;
                 b.Click += ProcessStartAsync;
-                b.Content = u.OriginalString;
+                b.Content = uriDict[u.Scheme].Item2;
                 tmp.Add(b);
             }
             return tmp;

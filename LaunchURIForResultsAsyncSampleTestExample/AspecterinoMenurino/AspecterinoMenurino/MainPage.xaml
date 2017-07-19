@@ -12,9 +12,10 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Content="Return to Pathfinding" Click="ReturnToPathfinder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
+        <TextBlock Text="{Binding displayText}" Width="400" Height="400" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+        <Button Grid.Row="0" Content="Return to Pathfinder" Click="ReturnToPathfinder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         </Button>
+        
     </Grid>
 </Page>
 
