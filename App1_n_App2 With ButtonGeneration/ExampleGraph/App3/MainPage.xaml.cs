@@ -40,7 +40,25 @@ namespace App3
     }
     public sealed partial class MainPage : Page
     {
-        List<PointData> p_d = new List<PointData>();
+        List<PointData> p_d = new List<PointData>
+        {
+            new PointData(new DateTime(0),50),
+            new PointData(new DateTime(1),50),
+            new PointData(new DateTime(2),50),
+            new PointData(new DateTime(3),50),
+            new PointData(new DateTime(4),50),
+            new PointData(new DateTime(5),50),
+            new PointData(new DateTime(6),50),
+            new PointData(new DateTime(7),50),
+            new PointData(new DateTime(8),50),
+            new PointData(new DateTime(9),50),
+            new PointData(new DateTime(10),50),
+            new PointData(new DateTime(11),50),
+            new PointData(new DateTime(12),50),
+            new PointData(new DateTime(13),50),
+            new PointData(new DateTime(14),50)
+
+        };
         public int nItems = 15;
         TimeSpan period = TimeSpan.FromSeconds(1);
         public void startTimers()
