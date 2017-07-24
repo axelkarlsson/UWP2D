@@ -115,37 +115,44 @@ namespace App3
                 GeneratedGraph.Points.Add(new Point(x, y));
             }
             GraphWindow.Children.Add(GeneratedGraph);
-
-            GenerateAxisLines();
+            GenerateAxisLines(p.Last().Y);
         }
-
         private PointData getRestInfo()
         {
             PointData p = new PointData(DateTime.Today,0);
-            HttpResponseMessage response = client.GetAsync(URL + query).Result;
-            if (response.IsSuccessStatusCode)
+            var v = client.GetAsync(URL + query).Exception;
+            if (v == null)
             {
-                //var j = JsonConvert.DeserializeObject();
-                var j = JArray.Parse(response.Content.ReadAsStringAsync().Result);
-                foreach (JObject content in j.Children<JObject>())
+                HttpResponseMessage response = client.GetAsync(URL + query).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    foreach (JProperty prop in content.Properties())
+                    //var j = JsonConvert.DeserializeObject();
+                    var j = JArray.Parse(response.Content.ReadAsStringAsync().Result);
+                    foreach (JObject content in j.Children<JObject>())
                     {
-                        if (prop.Name == "value")
+                        foreach (JProperty prop in content.Properties())
                         {
-                            p.Y = (double)prop.Value;
-                        }
-                        if (prop.Name == "timestamp")
-                        {
-                            p.X = (DateTime)prop.Value;
-                        }
+                            if (prop.Name == "value")
+                            {
+                                p.Y = (double)prop.Value;
+                            }
+                            if (prop.Name == "timestamp")
+                            {
+                                p.X = (DateTime)prop.Value;
+                            }
 
+                        }
                     }
                 }
             }
+            else
+            {
+                p.Y = (new Random().NextDouble()) * 100;
+                p.X = (p_d.Max(a => a.X)).AddSeconds(1);
+            }
             return p;
         }
-        private void GenerateAxisLines()
+        private void GenerateAxisLines(double d)
         {
             GraphBack.Children.Clear();
             XAxis.Children.Clear();
@@ -185,7 +192,15 @@ namespace App3
                 XAxis.Children.Add(t);
                 GraphBack.Children.Add(l);
             }
-
+            TextBlock t_ = new TextBlock();
+            t_.Text = Math.Round(d).ToString();
+            t_.TextAlignment = TextAlignment.Right;
+            t_.VerticalAlignment = VerticalAlignment.Stretch;
+            Thickness margin_ = t_.Margin;
+            margin_.Top = GraphBack.ActualHeight / 2 - (d - 50) * GraphBack.ActualHeight / 100;
+            margin_.Right = 10;
+            t_.Margin = margin_;
+            Yaxis.Children.Add(t_);
         }
     }
 }
