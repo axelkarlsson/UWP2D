@@ -259,3 +259,17 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+ExplodeView/*.sln
+ExplodeView/*.userprefs
+ExplodeView/*.csproj
+ExplodeView/*.pidb
+ExplodeView/*.unityproj
+ExplodeView/.DS_Store
+ExplodeView/Library/FailedAssetImports.txt
+ExplodeView/Library/cache/
+ExplodeView/Library/previews/
+ExplodeView/Library/ScriptAssemblies
+ExplodeView/obj
+ExplodeView/Temp
+ExplodeView/[Aa]pp

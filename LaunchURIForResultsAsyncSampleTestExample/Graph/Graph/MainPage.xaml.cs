@@ -116,42 +116,60 @@ namespace Graph
             }
             GraphWindow.Children.Add(GeneratedGraph);
 
-            GenerateAxisLines();
+            GenerateAxisLines(p.Last().Y);
         }
         private Random rnd = new Random();
-        private int t = 15;
+        private bool restConnectionEnabled = true;
         private PointData getRestInfo()
         {
-            PointData p = new PointData(new DateTime(t), rnd.Next(40,100));
-            t++;
-            /*
             PointData p = new PointData(DateTime.Today, 0);
-            HttpResponseMessage response = client.GetAsync(URL + query).Result;
-            if (response.IsSuccessStatusCode)
+            if (restConnectionEnabled)
             {
-                //var j = JsonConvert.DeserializeObject();
-                var j = JArray.Parse(response.Content.ReadAsStringAsync().Result);
-                foreach (JObject content in j.Children<JObject>())
+                try
                 {
-                    foreach (JProperty prop in content.Properties())
+                    var v = client.GetAsync(URL + query).Exception;
+                    if (v == null)
                     {
-                        if (prop.Name == "value")
+                        HttpResponseMessage response = client.GetAsync(URL + query).Result;
+                        if (response.IsSuccessStatusCode)
                         {
-                            p.Y = (double)prop.Value;
-                        }
-                        if (prop.Name == "timestamp")
-                        {
-                            p.X = (DateTime)prop.Value;
-                        }
+                            //var j = JsonConvert.DeserializeObject();
+                            var j = JArray.Parse(response.Content.ReadAsStringAsync().Result);
+                            foreach (JObject content in j.Children<JObject>())
+                            {
+                                foreach (JProperty prop in content.Properties())
+                                {
+                                    if (prop.Name == "value")
+                                    {
+                                        p.Y = (double)prop.Value;
+                                    }
+                                    if (prop.Name == "timestamp")
+                                    {
+                                        p.X = (DateTime)prop.Value;
+                                    }
 
+                                }
+                            }
+                        }
                     }
                 }
+                catch (Exception e)
+                {
+                    restConnectionEnabled = false;
+                    p.Y = (rnd.NextDouble()) * 100;
+                    p.X = (p_d.Max(a => a.X)).AddSeconds(1);
+                }
             }
-            */
+            else
+            {
+                p.Y = (rnd.NextDouble()) * 100;
+                p.X = (p_d.Max(a => a.X)).AddSeconds(1);
+            }
+
+              
             return p;
         }
-
-        private void GenerateAxisLines()
+        private void GenerateAxisLines(double d)
         {
             GraphBack.Children.Clear();
             XAxis.Children.Clear();
@@ -191,7 +209,16 @@ namespace Graph
                 XAxis.Children.Add(t);
                 GraphBack.Children.Add(l);
             }
-
+            TextBlock t_ = new TextBlock();
+            t_.Text = Math.Round(d).ToString();
+            t_.TextAlignment = TextAlignment.Right;
+            t_.VerticalAlignment = VerticalAlignment.Stretch;
+            Thickness margin_ = t_.Margin;
+            margin_.Top = GraphBack.ActualHeight / 2 - (d - 50) * GraphBack.ActualHeight / 100;
+            margin_.Right = 10;
+            t_.Margin = margin_;
+            Yaxis.Children.Add(t_);
         }
     }
 }
+
