@@ -209,15 +209,34 @@ namespace Graph
                 XAxis.Children.Add(t);
                 GraphBack.Children.Add(l);
             }
+
+            
             TextBlock t_ = new TextBlock();
+            t_.Text = restConnectionEnabled ? "REST" : "Random";
+            t_.TextAlignment = TextAlignment.Left;
+            t_.VerticalAlignment = VerticalAlignment.Stretch;
+            Thickness margin_ = t_.Margin;
+            margin_.Top = GraphBack.ActualHeight / 2 + 4 * GraphBack.ActualHeight / 100;
+            margin_.Left = 30;
+            t_.Margin = margin_;
+            RotateTransform s = new RotateTransform();
+            s.Angle = -90;
+            t_.RenderTransform = s;
+            Yaxis.Children.Add(t_);
+
+            t_ = new TextBlock();
             t_.Text = Math.Round(d).ToString();
             t_.TextAlignment = TextAlignment.Right;
             t_.VerticalAlignment = VerticalAlignment.Stretch;
-            Thickness margin_ = t_.Margin;
+            margin_ = t_.Margin;
             margin_.Top = GraphBack.ActualHeight / 2 - (d - 50) * GraphBack.ActualHeight / 100;
             margin_.Right = 10;
             t_.Margin = margin_;
             Yaxis.Children.Add(t_);
+
+           
+
+
         }
     }
 }
