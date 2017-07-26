@@ -20,6 +20,10 @@
     <packagename>bb50674a-458a-4b20-91b9-22383b85fe21_mv85jss3rj790</packagename>
     <displayname>Faceplate</displayname>
   </uri>
-
+  <uri>
+    <scheme>holoabb-explode</scheme>
+    <packagename>0d53ce12-6a09-4898-a328-341edb7f8191_mv85jss3rj790</packagename>
+    <displayname>Exploded View</displayname>
+  </uri>
 </urilist>
 
