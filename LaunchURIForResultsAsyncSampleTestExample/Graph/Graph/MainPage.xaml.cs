@@ -210,7 +210,6 @@ namespace Graph
                 GraphBack.Children.Add(l);
             }
 
-            
             TextBlock t_ = new TextBlock();
             t_.Text = restConnectionEnabled ? "REST" : "Random";
             t_.TextAlignment = TextAlignment.Left;

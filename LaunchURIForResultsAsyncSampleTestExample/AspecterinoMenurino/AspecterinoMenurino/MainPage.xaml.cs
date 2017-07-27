@@ -130,7 +130,7 @@ namespace AspecterinoMenurino
             inputData["Test"] = b.Tag.ToString();
             inputData["docs"] = "hololens.pdf";
             LaunchUriResult success = await Launcher.LaunchUriForResultsAsync(u, opt, inputData);
- 
+
         }
 
         private List<Button> GenerateButtons(List<Uri> paths)
