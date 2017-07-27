@@ -5,7 +5,7 @@ using HoloToolkit.Unity.InputModule;
 using System;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ExplodeObject : MonoBehaviour, IInputClickHandler {
+public abstract class ExplodeObject : MonoBehaviour, IInputClickHandler {
     private Dictionary<Transform, Vector3> defaultPositions = new Dictionary<Transform, Vector3>();
     private bool explodedActive = false;
 
@@ -28,9 +28,11 @@ public class ExplodeObject : MonoBehaviour, IInputClickHandler {
         {
             defaultPositions[t] = t.position; 
         }
-	}
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+    }
 
-    void ExplodeView()
+    public void ExplodeView()
     {
         //Reset to default position if exploded
         if (explodedActive)
@@ -52,6 +54,7 @@ public class ExplodeObject : MonoBehaviour, IInputClickHandler {
                 ExplodePart(t);
                 foreach(ExplodeObject e in t.GetComponentsInChildren<ExplodeObject>())
                 {
+                    
                     e.ExplodeView(true);
                 }
             }
@@ -59,7 +62,7 @@ public class ExplodeObject : MonoBehaviour, IInputClickHandler {
         explodedActive = !explodedActive;
     }
 
-    void ExplodeView(bool state)
+    public void ExplodeView(bool state)
     {
         if(explodedActive != state)
         {
@@ -67,11 +70,8 @@ public class ExplodeObject : MonoBehaviour, IInputClickHandler {
         }
     }
 
-    void ExplodePart(Transform t)
-    {
-        Vector3 direction = (t.position - t.parent.position).normalized;
-        t.position += (direction/4);
-    }
+    public abstract void ExplodePart(Transform t);
+
 	
 	// Update is called once per frame
 	void Update () {

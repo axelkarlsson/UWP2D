@@ -63,6 +63,7 @@ namespace AspecterinoMenurino
             public string uriScheme;
             public string packageName;
             public string displayName;
+            public bool immersiveApp;
         }
 
         List<Uri> uriList;
@@ -70,7 +71,7 @@ namespace AspecterinoMenurino
         private ValueSet result;
 
         //The key is the Uri-scheme, the first item is the package name and the second item is the display name
-        private Dictionary<string, ValueTuple<string, string>> uriDict = new Dictionary<string , ValueTuple<string,string>>();
+        private Dictionary<string, ValueTuple<string, string, bool>> uriDict = new Dictionary<string , ValueTuple<string,string, bool>>();
 
 
 
@@ -94,11 +95,12 @@ namespace AspecterinoMenurino
                        {
                            uriScheme = (string)query.Element("scheme"),
                            packageName = (string)query.Element("packagename"),
-                           displayName = (string)query.Element("displayname")
+                           displayName = (string)query.Element("displayname"),
+                           immersiveApp = (bool)query.Element("immersive")
                        };
             foreach(UriElement u in data)
             {
-                uriDict[u.uriScheme] = (u.packageName, u.displayName);
+                uriDict[u.uriScheme] = (u.packageName, u.displayName, u.immersiveApp);
                 uriList.Add(new Uri(u.uriScheme + ":///"));
             }
         }
@@ -117,6 +119,7 @@ namespace AspecterinoMenurino
             return tmp;
         }
 
+
         private async void ProcessStartAsync(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
@@ -129,7 +132,16 @@ namespace AspecterinoMenurino
             ValueSet inputData = new ValueSet();
             inputData["Test"] = b.Tag.ToString();
             inputData["docs"] = "hololens.pdf";
-            LaunchUriResult success = await Launcher.LaunchUriForResultsAsync(u, opt, inputData);
+            if (uriDict[u.Scheme].Item3)
+            {
+                //Launch immersive apps not using ForResults
+                var s = await Launcher.LaunchUriAsync(u);
+            }
+            else
+            {
+                //Launch other apps using ForResults for better experience
+                LaunchUriResult success = await Launcher.LaunchUriForResultsAsync(u, opt, inputData);
+            }
 
         }
 

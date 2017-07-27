@@ -4,26 +4,37 @@
     <scheme>holoabb-docs</scheme>
     <packagename>149de791-5e92-4412-addd-8f702f98d307_mv85jss3rj790</packagename>
     <displayname>Documentation</displayname>
+    <immersive>false</immersive>
   </uri>
   <uri>
     <scheme>holoabbtest</scheme>
     <packagename>2e60fe6a-1684-4052-b8c6-bf1ac7a95844_mv85jss3rj790</packagename>
     <displayname>Test App</displayname>
+    <immersive>false</immersive>
   </uri>
   <uri>
     <scheme>holoabb-graph</scheme>
     <packagename>0d53ce12-6a09-4898-a328-341edb7f8191_mv85jss3rj790</packagename>
     <displayname>Trend</displayname>
+    <immersive>false</immersive>
   </uri>
   <uri>
     <scheme>holoabb-faceplate</scheme>
     <packagename>bb50674a-458a-4b20-91b9-22383b85fe21_mv85jss3rj790</packagename>
     <displayname>Faceplate</displayname>
+      <immersive>false</immersive>
   </uri>
   <uri>
     <scheme>holoabb-explode</scheme>
     <packagename>ExplodeView_pzq3xp76mxafg</packagename>
     <displayname>Exploded View</displayname>
+    <immersive>true</immersive>
+  </uri>
+    <uri>
+    <scheme>holoabb-path</scheme>
+    <packagename>ControlRoomDemo_pzq3xp76mxafg</packagename>
+    <displayname>Path Finding</displayname>
+    <immersive>true</immersive>
   </uri>
 </urilist>
 
