@@ -1,0 +1,4 @@
+        public Uri SkypeURI(string Participant, string topic)
+        {
+            return new Uri("skype:" + Participant + "?call[&topic = " + topic + "]");
+        }
