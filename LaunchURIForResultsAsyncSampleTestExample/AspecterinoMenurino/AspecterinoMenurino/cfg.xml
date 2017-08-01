@@ -36,5 +36,11 @@
     <displayname>Path Finding</displayname>
     <immersive>true</immersive>
   </uri>
+    <uri>
+    <scheme>skype:echo123</scheme>
+    <packagename>null</packagename>
+    <displayname>Skype Test Call</displayname>
+    <immersive>true</immersive>
+  </uri>
 </urilist>
 
