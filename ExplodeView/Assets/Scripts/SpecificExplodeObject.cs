@@ -5,11 +5,11 @@ using UnityEngine;
 public class SpecificExplodeObject : ExplodeObject
 {
 
-    public override void ExplodePart(Transform t)
+    public override Vector3 ExplodePartPos(Transform t)
     {
         Vector3 direction = (t.position - t.parent.position);
         direction.z = 0;
         direction.y = 0;
-        t.position += (direction * (float)(System.Math.Log(2 + direction.magnitude)));
+        return t.position + (direction * (float)(System.Math.Log(2 + direction.magnitude)));
     }
 }

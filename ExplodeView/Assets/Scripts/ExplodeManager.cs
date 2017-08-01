@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ExplodeManager : MonoBehaviour
 {
-    private bool needUpdate = false;
     // Use this for initialization
     void Start()
     {
@@ -19,15 +18,8 @@ public class ExplodeManager : MonoBehaviour
 
     public void UpdatePosition()
     {
+        GetComponentInChildren<ExplodeObject>().ExplodeView(false);
         transform.position = Camera.main.transform.position;
-        needUpdate = true;
+        GetComponentInChildren<ExplodeObject>().SetDefaultPosition();
     }
-
-    /*
-     AppCallbacks.Instance.InvokeOnAppThread(new AppCallbackItem(() =>
-                {
-                    testFunc(args);
-                }
-                ), false);
-                */
 }

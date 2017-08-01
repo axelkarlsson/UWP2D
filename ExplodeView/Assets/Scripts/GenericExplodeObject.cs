@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GenericExplodeObject : ExplodeObject {
 
-    public override void ExplodePart(Transform t)
+    public override Vector3 ExplodePartPos(Transform t)
     {
         Vector3 direction = (t.position - t.parent.position);
-        t.position += (direction * (float)(System.Math.Log(2 + direction.magnitude)));
+        return t.position + (direction * (float)(System.Math.Log(2 + direction.magnitude)));
     }
          
 }

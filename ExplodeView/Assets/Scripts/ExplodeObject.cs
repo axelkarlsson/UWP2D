@@ -7,6 +7,7 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class ExplodeObject : MonoBehaviour, IInputClickHandler {
     private Dictionary<Transform, Vector3> defaultPositions = new Dictionary<Transform, Vector3>();
+    private Dictionary<Transform, Vector3> explodedPositions = new Dictionary<Transform, Vector3>();
     private bool explodedActive = false;
 
     public void OnInputClicked(InputClickedEventData eventData)
@@ -24,41 +25,43 @@ public abstract class ExplodeObject : MonoBehaviour, IInputClickHandler {
 
     // Use this for initialization
     void Start () {
-		foreach(Transform t in transform)
+        foreach (Transform t in transform)
         {
-            defaultPositions[t] = t.position; 
+            defaultPositions[t] = t.position;
+            explodedPositions[t] = ExplodePartPos(t);
         }
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
     }
 
+    //Updates the defaultpositions to their new values
+    public void SetDefaultPosition()
+    {
+        foreach (Transform t in transform)
+        {
+            defaultPositions[t] = t.position;
+            explodedPositions[t] = ExplodePartPos(t);
+            var child = t.GetComponentInChildren<ExplodeObject>();
+            if(child != null)
+            {
+                child.SetDefaultPosition();
+            }
+        }
+    }
+
+
     public void ExplodeView()
     {
-        //Reset to default position if exploded
-        if (explodedActive)
-        {
-            foreach(Transform t in defaultPositions.Keys)
-            {
-                t.position = defaultPositions[t];
-                foreach (ExplodeObject e in t.GetComponentsInChildren<ExplodeObject>())
-                {
-                    e.ExplodeView(false);
-                }
-            }
-        }
-        else
-        {
 
-            foreach (Transform t in defaultPositions.Keys)
+        foreach(Transform t in defaultPositions.Keys)
+        {
+            t.position = explodedActive ? defaultPositions[t] : explodedPositions[t];
+            foreach (ExplodeObject e in t.GetComponentsInChildren<ExplodeObject>())
             {
-                ExplodePart(t);
-                foreach(ExplodeObject e in t.GetComponentsInChildren<ExplodeObject>())
-                {
-                    
-                    e.ExplodeView(true);
-                }
+                e.ExplodeView(!explodedActive);
             }
         }
+
         explodedActive = !explodedActive;
     }
 
@@ -70,7 +73,7 @@ public abstract class ExplodeObject : MonoBehaviour, IInputClickHandler {
         }
     }
 
-    public abstract void ExplodePart(Transform t);
+    public abstract Vector3 ExplodePartPos(Transform t);
 
 	
 	// Update is called once per frame
