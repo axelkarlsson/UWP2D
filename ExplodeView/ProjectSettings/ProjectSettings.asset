@@ -509,7 +509,7 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: ExplodeView
   metroPackageVersion: 
-  metroCertificatePath: C:\Users\ABB\Documents\Hololens\ControlRoomDemo\UWP2D\ExplodeView\Assets\WSATestCertificate.pfx
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
