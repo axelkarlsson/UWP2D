@@ -2,10 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if NETFX_CORE
+using Windows.ApplicationModel.Core;
+#endif
 
 public class ExplodeManager : MonoBehaviour
 {
     private bool updateNextFrame;
+    private Vector3 prevPos;
     public List<GameObject> explodeModels;
     // Use this for initialization
     private string currentObject;
@@ -22,12 +26,16 @@ public class ExplodeManager : MonoBehaviour
             GetComponentInChildren<ExplodeObject>().ExplodeView(false);
             Vector3 dir = Camera.main.transform.forward;
             dir.y = 0;
-
-            transform.position = Camera.main.transform.position + dir.normalized * 2;
+            dir = Camera.main.transform.position + dir.normalized * 2;
+            transform.position = dir;
             GetComponentInChildren<ExplodeObject>().SetDefaultPosition();
-            
-            updateNextFrame = false;
+
+            if (Camera.main.transform.position != prevPos)
+            {
+                updateNextFrame = false;
+            }
         }
+        prevPos = Camera.main.transform.position;
     }
 
     public void UpdateObject(string objectName)
