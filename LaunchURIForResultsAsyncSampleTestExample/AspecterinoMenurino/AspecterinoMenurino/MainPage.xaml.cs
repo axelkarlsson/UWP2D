@@ -64,6 +64,7 @@ namespace AspecterinoMenurino
             public string packageName;
             public string displayName;
             public bool immersiveApp;
+            public string contact;
         }
 
         List<Uri> uriList;
@@ -96,12 +97,12 @@ namespace AspecterinoMenurino
                            uriScheme = (string)query.Element("scheme"),
                            packageName = (string)query.Element("packagename"),
                            displayName = (string)query.Element("displayname"),
-                           immersiveApp = (bool)query.Element("immersive")
+                           immersiveApp = (bool)query.Element("immersive"),
                        };
             foreach(UriElement u in data)
             {
                 uriDict[u.uriScheme] = (u.packageName, u.displayName, u.immersiveApp);
-                uriList.Add(new Uri(u.uriScheme + ":///"));
+                uriList.Add(new Uri(u.uriScheme + ":" + u.contact + "//"));
             }
         }
 
@@ -127,7 +128,7 @@ namespace AspecterinoMenurino
             {
                 DisplayApplicationPicker = false
             };
-            Uri u = new Uri(b.Tag as string);
+            Uri u = new Uri(@b.Tag as string);
             opt.TargetApplicationPackageFamilyName = uriDict[u.Scheme].Item1;
             ValueSet inputData = new ValueSet();
             inputData["Test"] = b.Tag.ToString();
