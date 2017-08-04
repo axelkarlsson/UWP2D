@@ -68,8 +68,6 @@ namespace AspecterinoMenurino
         }
 
         List<Uri> uriList;
-        private Windows.System.ProtocolForResultsOperation _operation = null;
-        private ValueSet result;
 
         //The key is the Uri-scheme, the first item is the package name and the second item is the display name
         private Dictionary<string, ValueTuple<string, string, bool>> uriDict = new Dictionary<string , ValueTuple<string,string, bool>>();
@@ -80,7 +78,6 @@ namespace AspecterinoMenurino
         {
 
             this.InitializeComponent();
-            result = new ValueSet();
             uriList = new List<Uri>();
             readConfig();
 
@@ -98,6 +95,7 @@ namespace AspecterinoMenurino
                            packageName = (string)query.Element("packagename"),
                            displayName = (string)query.Element("displayname"),
                            immersiveApp = (bool)query.Element("immersive"),
+                           contact = (string)query.Element("contact")
                        };
             foreach(UriElement u in data)
             {
@@ -155,6 +153,7 @@ namespace AspecterinoMenurino
                 b.Tag = u.AbsoluteUri;
                 b.Click += ProcessStartAsync;
                 b.Content = uriDict[u.Scheme].Item2;
+                b.Content = u.AbsoluteUri;
                 tmp.Add(b);
             }
             return tmp;
@@ -164,20 +163,21 @@ namespace AspecterinoMenurino
         {
             
             if (e != null)
-            { 
-                var forResultArgs = e.Parameter as ProtocolForResultsActivatedEventArgs;
-                if (forResultArgs != null)
+            {
+                var eventArgs = e.Parameter as ProtocolActivatedEventArgs;
+                if (eventArgs != null)
                 {
-                    _operation = forResultArgs.ProtocolForResultsOperation;
-                    result.Clear();
+                    string receivedUri = eventArgs.Uri.AbsoluteUri;
+                    receivedUri = receivedUri.Substring(receivedUri.IndexOf('/') + 2).ToLower();
+                    receivedUri = receivedUri.Remove(receivedUri.Length - 1);
                     for (int i = 0; i < uriList.Count; i++)
-                    {
-                        uriList[i] = new Uri(uriList[i].Scheme + "://" + forResultArgs.Data["ID"] + uriList[i].AbsolutePath);
+                    { 
+                        uriList[i] = new Uri(uriList[i].Scheme + "://" + receivedUri + uriList[i].AbsolutePath);
                     }
                 }
             }
 
-            int RowCounter = 1;
+            int RowCounter = 0;
             int ColumnCounter = 0;
             int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(uriList).Count));
             int Cmax = Rmax;
@@ -204,12 +204,6 @@ namespace AspecterinoMenurino
                 BackGrid.ColumnDefinitions.Add(CD());
             }
 
-        }
-
-
-        private void ReturnToPathfinder(object sender, RoutedEventArgs e)
-        {
-            _operation.ReportCompleted(result);
         }
 
         /// <summary>

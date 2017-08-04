@@ -84,20 +84,15 @@ namespace AspecterinoMenurino
 
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-            Frame rootFrame = new Frame();
-            rootFrame.NavigationFailed += OnNavigationFailed;
-            ProtocolForResultsActivatedEventArgs activatedArgs = args as ProtocolForResultsActivatedEventArgs;
-            if (activatedArgs != null)
+            if (args.Kind == ActivationKind.Protocol)
             {
-                rootFrame.Navigate(typeof(MainPage), activatedArgs);
-            }
-            else
-            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                Frame rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
                 rootFrame.Navigate(typeof(MainPage), eventArgs);
+                Window.Current.Content = rootFrame;
+                Window.Current.Activate();
             }
-            Window.Current.Content = rootFrame;
-            Window.Current.Activate();
         }
         /// <summary>
         /// Invoked when Navigation to a certain page fails
