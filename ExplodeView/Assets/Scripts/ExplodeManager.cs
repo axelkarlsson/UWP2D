@@ -29,15 +29,14 @@ public class ExplodeManager : MonoBehaviour
     {
         if (updateNextFrame)
         {
-            GetComponentInChildren<ExplodeObject>().ExplodeView(false);
-            Vector3 dir = Camera.main.transform.forward;
-            dir.y = 0;
-            dir = Camera.main.transform.position + dir.normalized * 2;
-            transform.position = dir;
-            GetComponentInChildren<ExplodeObject>().SetDefaultPosition();
-
             if (Camera.main.transform.position != prevPos)
             {
+                GetComponentInChildren<ExplodeObject>().ExplodeView(false);
+                Vector3 dir = Camera.main.transform.forward;
+                dir.y = 0;
+                dir = Camera.main.transform.position + dir.normalized * 3.5f;
+                transform.position = dir;
+                GetComponentInChildren<ExplodeObject>().SetDefaultPosition();
                 updateNextFrame = false;
             }
         }
