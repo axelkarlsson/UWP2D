@@ -1,0 +1,9 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UnityWSASolutionName>ExplodeView</UnityWSASolutionName>
+        <UnityWSASolutionDir>C:\Users\ABB\Documents\Hololens\ControlRoomDemo\UWP2D\ExplodeView\App\</UnityWSASolutionDir>
+        <UnityProjectDir>C:\Users\ABB\Documents\Hololens\ControlRoomDemo\UWP2D\ExplodeView\</UnityProjectDir>
+        <UnityWSAPlayerDir>C:\Program Files\Unity\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
+        <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
+    </PropertyGroup>
+</Project>

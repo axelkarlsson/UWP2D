@@ -15,7 +15,13 @@ public class ExplodeManager : MonoBehaviour
     private string currentObject;
     void Start()
     {
-
+        string args = UnityEngine.WSA.Application.arguments;
+        if (args.Contains("Uri="))
+        {
+            string objectName = args.Substring(args.IndexOf('/') + 2).ToLower();
+            objectName = objectName.Remove(objectName.Length - 1);
+            UpdateObject(objectName);
+        }
     }
 
     // Update is called once per frame

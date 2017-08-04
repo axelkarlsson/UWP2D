@@ -153,7 +153,6 @@ namespace AspecterinoMenurino
                 b.Tag = u.AbsoluteUri;
                 b.Click += ProcessStartAsync;
                 b.Content = uriDict[u.Scheme].Item2;
-                b.Content = u.AbsoluteUri;
                 tmp.Add(b);
             }
             return tmp;
