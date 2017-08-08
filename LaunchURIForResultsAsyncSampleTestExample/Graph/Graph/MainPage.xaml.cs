@@ -127,31 +127,27 @@ namespace Graph
             {
                 try
                 {
-                    var v = client.GetAsync(URL + query).Exception;
-                    if (v == null)
+                    HttpResponseMessage response = client.GetAsync(URL + query).Result;
+                    if (response.IsSuccessStatusCode)
                     {
-                        HttpResponseMessage response = client.GetAsync(URL + query).Result;
-                        if (response.IsSuccessStatusCode)
+                        var j = JArray.Parse(response.Content.ReadAsStringAsync().Result);
+                        foreach (JObject content in j.Children<JObject>())
                         {
-                            //var j = JsonConvert.DeserializeObject();
-                            var j = JArray.Parse(response.Content.ReadAsStringAsync().Result);
-                            foreach (JObject content in j.Children<JObject>())
+                            foreach (JProperty prop in content.Properties())
                             {
-                                foreach (JProperty prop in content.Properties())
+                                if (prop.Name == "value")
                                 {
-                                    if (prop.Name == "value")
-                                    {
-                                        p.Y = (double)prop.Value;
-                                    }
-                                    if (prop.Name == "timestamp")
-                                    {
-                                        p.X = (DateTime)prop.Value;
-                                    }
-
+                                    p.Y = (double)prop.Value;
                                 }
+                                if (prop.Name == "timestamp")
+                                {
+                                    p.X = (DateTime)prop.Value;
+                                }
+
                             }
                         }
                     }
+                    
                 }
                 catch (Exception e)
                 {
