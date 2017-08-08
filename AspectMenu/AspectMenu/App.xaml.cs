@@ -47,6 +47,7 @@ namespace AspectMenu
             Window.Current.Content = rootFrame;
             Window.Current.Activate();
 
+            /*
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
