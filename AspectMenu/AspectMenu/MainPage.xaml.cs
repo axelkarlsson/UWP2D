@@ -178,8 +178,8 @@ namespace AspectMenu
 
             int RowCounter = 0;
             int ColumnCounter = 0;
-            int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(uriList).Count));
-            int Cmax = Rmax;
+            int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(UriList).Count));
+            int Cmax = (int)Math.Round(Math.Sqrt(GenerateButtons(UriList).Count));
             foreach (Button b in GenerateButtons(uriList))
             {
                 BackGrid.Children.Add(b);
