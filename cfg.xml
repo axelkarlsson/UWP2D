@@ -4,7 +4,7 @@
     <Aspect name = "Documentation">
       <scheme>holoabb-docs</scheme>
       <packagename>149de791-5e92-4412-addd-8f702f98d307_mv85jss3rj790</packagename>
-      <parameter>C:\Users\ABB\Documents\GitHub\UWP2D\LaunchURIForResultsAsyncSampleTestExample\Docs\Docs\Assets\hololens.pdf</parameter>
+      <parameter>hololens.pdf</parameter>
       <displayname>Not a user Manual</displayname>
       <immersive>false</immersive>
     </Aspect>
@@ -34,14 +34,14 @@
     <Aspect name = "Documentation">
       <scheme>holoabb-docs</scheme>
       <packagename>149de791-5e92-4412-addd-8f702f98d307_mv85jss3rj790</packagename>
-      <parameter>C:\Users\ABB\Documents\GitHub\UWP2D\LaunchURIForResultsAsyncSampleTestExample\Docs\Docs\Assets\hololens.pdf</parameter>
+      <parameter>hololens.pdf</parameter>
       <displayname>Not a user Manual</displayname>
       <immersive>false</immersive>
     </Aspect>
     <Aspect name = "Trend">
       <scheme>holoabb-graph</scheme>
       <packagename>0d53ce12-6a09-4898-a328-341edb7f8191_mv85jss3rj790</packagename>
-      <parameter>http://138.227.236.109:8088/api/v0.1/properties/57461dc4-3171-4b8f-94b8-be6f72347edc/b60fc394-b1c9-4def-80c5-7be809d6763d/par.ManValue?format=json</parameter>
+      <parameter>138.227.236.109:8088/api/v0.1/properties/57461dc4-3171-4b8f-94b8-be6f72347edc/b60fc394-b1c9-4def-80c5-7be809d6763d/par.ManValue?format=json</parameter>
       <displayname>Trend</displayname>
       <immersive>false</immersive>
     </Aspect>
