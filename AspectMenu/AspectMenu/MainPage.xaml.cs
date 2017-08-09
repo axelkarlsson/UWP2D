@@ -64,7 +64,7 @@ namespace AspectMenu
             public string packageName;
             public string displayName;
             public bool immersiveApp;
-            public string Parameter;
+            public string parameter;
         }
 
         List<Uri> uriList;
@@ -79,29 +79,39 @@ namespace AspectMenu
 
             this.InitializeComponent();
             uriList = new List<Uri>();
-            readConfig();
 
         }
 
-        void readConfig()
+        void readConfig(string objectName)
         {
-            string fullPath = Path.Combine(Package.Current.InstalledLocation.Path, "cfg.xml");
-            XDocument loadedUris = XDocument.Load(fullPath);
+            //Change this to somewhere accesible for the user, so it can be updated without recompiling
+            objectName = objectName.ToLower();
+            string fullPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "cfg.xml");
+            XDocument objectList = XDocument.Load(fullPath);
 
-            var data = from query in loadedUris.Descendants("uri")
-                       select new UriElement
+            var objectData = from query in objectList.Descendants("Object")
+                             where ((string)query.Attribute("name")).ToLower() == objectName
+                             select query;
+
+            
+            var aspects = from query in objectData.Descendants("Aspect")
+                       select new Aspect
                        {
                            uriScheme = (string)query.Element("scheme"),
                            packageName = (string)query.Element("packagename"),
                            displayName = (string)query.Element("displayname"),
                            immersiveApp = (bool)query.Element("immersive"),
-                           Parameter = (string)query.Element("Parameter")
+                           parameter = (string)query.Element("parameter")
                        };
-            foreach (UriElement u in data)
+            
+            foreach (Aspect u in aspects)
             {
                 uriDict[u.uriScheme] = (u.packageName, u.displayName, u.immersiveApp);
-                uriList.Add(new Uri(u.uriScheme + ":" + u.contact + "//"));
+                uriList.Add(new Uri(u.uriScheme + ":" + u.parameter + "//"));
             }
+
+
+            
         }
 
         private ColumnDefinition CD()
@@ -169,17 +179,23 @@ namespace AspectMenu
                     string receivedUri = eventArgs.Uri.AbsoluteUri;
                     receivedUri = receivedUri.Substring(receivedUri.IndexOf('/') + 2).ToLower();
                     receivedUri = receivedUri.Remove(receivedUri.Length - 1);
+                    readConfig(receivedUri);
                     for (int i = 0; i < uriList.Count; i++)
                     {
                         uriList[i] = new Uri(uriList[i].Scheme + "://" + receivedUri + uriList[i].AbsolutePath);
                     }
                 }
+                else
+                {
+                    readConfig("AT_2");
+                }
             }
-
+            GenerateButtons(uriList);
+            
             int RowCounter = 0;
             int ColumnCounter = 0;
-            int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(UriList).Count));
-            int Cmax = (int)Math.Round(Math.Sqrt(GenerateButtons(UriList).Count));
+            int Rmax = (int)Math.Ceiling(Math.Sqrt(GenerateButtons(uriList).Count));
+            int Cmax = (int)Math.Round(Math.Sqrt(GenerateButtons(uriList).Count));
             foreach (Button b in GenerateButtons(uriList))
             {
                 BackGrid.Children.Add(b);
@@ -202,7 +218,7 @@ namespace AspectMenu
             {
                 BackGrid.ColumnDefinitions.Add(CD());
             }
-
+            
         }
 
         /// <summary>
