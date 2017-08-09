@@ -505,9 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explodeModels:
-  - {fileID: 1113481127835316, guid: 69c24a3ce355f7b44aac7089df062627, type: 2}
-  - {fileID: 1429127769362294, guid: 0c57da235088bbd4c83e250567e39b88, type: 2}
-  - {fileID: 1802319957768406, guid: f00ea6a0123ec01469df2cc77bfc7eca, type: 2}
+  - {fileID: 1904879152402316, guid: 5f96826349d284f40ad9d3498acf760d, type: 2}
 --- !u!1001 &2012627919
 Prefab:
   m_ObjectHideFlags: 0

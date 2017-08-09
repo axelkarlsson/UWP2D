@@ -1,0 +1,14 @@
+﻿<Page
+    x:Class="FileTesting.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FileTesting"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Create Folder Test" Tag="NewFolder" Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Height="100"/>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding folderName}"/>
+    </Grid>
+</Page>

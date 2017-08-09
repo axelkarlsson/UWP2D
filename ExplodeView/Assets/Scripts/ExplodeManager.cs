@@ -22,6 +22,7 @@ public class ExplodeManager : MonoBehaviour
             objectName = objectName.Remove(objectName.Length - 1);
             UpdateObject(objectName);
         }
+        UpdateObject("test"); //REMOVE THIS BEFORE PROD
     }
 
     // Update is called once per frame
@@ -82,22 +83,10 @@ public class ExplodeManager : MonoBehaviour
 
     public void LoadModel(string model)
     {
-        switch (model)
-        {
-            case "head":
+
                 GameObject head = GameObject.Instantiate(explodeModels[0], transform) as GameObject;
-                head.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                break;
-            case "body":
-                GameObject body = GameObject.Instantiate(explodeModels[1], transform) as GameObject;
-                body.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                break;
-            case "full":
-            default:
-                GameObject full = GameObject.Instantiate(explodeModels[2], transform) as GameObject;
-                full.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                break;
-        }
+                head.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+
     }
 
     public void UpdatePosition()
