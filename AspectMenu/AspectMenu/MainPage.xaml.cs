@@ -58,13 +58,13 @@ namespace AspectMenu
     public sealed partial class MainPage : Page
     {
 
-        private class UriElement
+        private class Aspect
         {
             public string uriScheme;
             public string packageName;
             public string displayName;
             public bool immersiveApp;
-            public string contact;
+            public string Parameter;
         }
 
         List<Uri> uriList;
@@ -95,7 +95,7 @@ namespace AspectMenu
                            packageName = (string)query.Element("packagename"),
                            displayName = (string)query.Element("displayname"),
                            immersiveApp = (bool)query.Element("immersive"),
-                           contact = (string)query.Element("contact")
+                           Parameter = (string)query.Element("Parameter")
                        };
             foreach (UriElement u in data)
             {
