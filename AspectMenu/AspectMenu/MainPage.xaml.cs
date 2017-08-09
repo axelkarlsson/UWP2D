@@ -67,43 +67,45 @@ namespace AspectMenu
             public string parameter;
         }
 
-        List<Uri> uriList;
+        List<Uri> uriList = new List<Uri>();
 
         //The key is the Uri, links to Aspect with more info such as displayname, immersive
         private Dictionary<Uri, Aspect> aspectDict = new Dictionary<Uri, Aspect>();
+        public TextObject s = new TextObject { displayText = "Start" };
 
 
 
         public MainPage()
         {
-
             this.InitializeComponent();
-            uriList = new List<Uri>();
-
+            DataContext = s;
         }
 
-        void readConfig(string objectName)
+        async void readConfig(string objectName)
         {
             objectName = objectName.ToLower();
             string fullPath = Path.Combine(KnownFolders.CameraRoll.Path, "cfg.xml");
+            var stream = await KnownFolders.CameraRoll.OpenStreamForReadAsync("cfg.xml");
             uriList.Clear();
-            if (File.Exists(fullPath))
+            
+            try
             {
-                XDocument objectList = XDocument.Load(fullPath);
+             
+                XDocument objectList = XDocument.Load(stream);
                 var objectData = from query in objectList.Descendants("Object")
-                                 where ((string)query.Attribute("name")).ToLower() == objectName
-                                 select query;
+                                    where ((string)query.Attribute("name")).ToLower() == objectName
+                                    select query;
 
 
                 var aspects = from query in objectData.Descendants("Aspect")
-                              select new Aspect
-                              {
-                                  uriScheme = (string)query.Element("scheme"),
-                                  packageName = (string)query.Element("packagename"),
-                                  displayName = (string)query.Element("displayname"),
-                                  immersiveApp = (bool)query.Element("immersive"),
-                                  parameter = (string)query.Element("parameter")
-                              };
+                                select new Aspect
+                                {
+                                    uriScheme = (string)query.Element("scheme"),
+                                    packageName = (string)query.Element("packagename"),
+                                    displayName = (string)query.Element("displayname"),
+                                    immersiveApp = (bool)query.Element("immersive"),
+                                    parameter = (string)query.Element("parameter")
+                                };
 
                 foreach (Aspect u in aspects)
                 {
@@ -111,7 +113,13 @@ namespace AspectMenu
                     aspectDict[tmp] = u;
                     uriList.Add(tmp);
                 }
+                 
             }
+            catch(Exception e)
+            {
+                s.displayText = e.ToString();
+            }
+            
         }
         
     
@@ -181,6 +189,7 @@ namespace AspectMenu
                     readConfig(receivedUri);
                 }
             }
+            
             if(uriList.Count == 0)
             {
                 //If no aspects were found -> object doesn't exist, move to new page to handle it. NYI
@@ -214,6 +223,8 @@ namespace AspectMenu
             {
                 BackGrid.ColumnDefinitions.Add(CD());
             }
+
+            s.displayText = uriList.Count.ToString();
             
         }
 
