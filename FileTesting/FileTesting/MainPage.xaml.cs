@@ -50,6 +50,15 @@ namespace FileTesting
             {
                 se.folderName = es.ToString();
             }
+            try
+            {
+                StorageFile newFile = await KnownFolders.CameraRoll.CreateFileAsync("NewFile.txt");
+                se.folderName = "It does not crash!";
+            }
+            catch (Exception es)
+            {
+                se.folderName = es.ToString();
+            }
         }
     }
 

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.ComponentModel;
+using Windows.Storage;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,7 +33,6 @@ namespace Docs
             this.InitializeComponent();
             text = new TextObject();
             DataContext = text;
-            ReadPDF("test");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,30 +41,27 @@ namespace Docs
             if(resArgs != null)
             {
                 _operation = resArgs.ProtocolForResultsOperation;
-                if(resArgs.Data.ContainsKey("docs"))
-                {
-                    string fileName = resArgs.Data["docs"] as string;
-                    ReadPDF(fileName);
-                }
+                string receivedUri = e.Uri.AbsoluteUri;
+                receivedUri = receivedUri.Substring(receivedUri.IndexOf('/') + 2).ToLower();
+                receivedUri = receivedUri.Remove(receivedUri.Length - 1);
+                ReadPDF(receivedUri);
             }
         }
 
         async void ReadPDF(string fileName)
         {
-            var packageFolder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
 
-            /*
-            var files = await packageFolder.GetFilesAsync();
-            foreach (var file in files)
+            try
             {
-                text.displayText += (file.Name + "\n");
-                
+                var pdfFile = await KnownFolders.CameraRoll.GetFileAsync(fileName);
+                await Windows.System.Launcher.LaunchFileAsync(pdfFile);
+                _operation.ReportCompleted(new ValueSet());
             }
-            */
+            catch (Exception)
+            {
+                text.displayText = "Exception has occured";
+            }
             
-            var pdfFile = await packageFolder.GetFileAsync(fileName);
-            await Windows.System.Launcher.LaunchFileAsync(pdfFile);
-            _operation.ReportCompleted(new ValueSet());
             
         }
     }

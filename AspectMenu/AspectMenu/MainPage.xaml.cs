@@ -69,8 +69,8 @@ namespace AspectMenu
 
         List<Uri> uriList;
 
-        //The key is the Uri-scheme, the first item is the package name and the second item is the display name
-        private Dictionary<string, ValueTuple<string, string, bool>> uriDict = new Dictionary<string, ValueTuple<string, string, bool>>();
+        //The key is the Uri, links to Aspect with more info such as displayname, immersive
+        private Dictionary<Uri, Aspect> aspectDict = new Dictionary<Uri, Aspect>();
 
 
 
@@ -82,25 +82,12 @@ namespace AspectMenu
 
         }
 
-        async void readConfig(string objectName)
+        void readConfig(string objectName)
         {
-
-            //Change this to somewhere accesible for the user, so it can be updated without recompiling
             objectName = objectName.ToLower();
-            string fullPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "cfg.xml");
-
-            bool fileExists = true;
-
-            try
-            {
-                StorageFile s = await StorageFile.GetFileFromPathAsync(fullPath);
-            }
-            catch (FileNotFoundException)
-            {
-                fileExists = false;
-            }
-
-            if (fileExists)
+            string fullPath = Path.Combine(KnownFolders.CameraRoll.Path, "cfg.xml");
+            uriList.Clear();
+            if (File.Exists(fullPath))
             {
                 XDocument objectList = XDocument.Load(fullPath);
                 var objectData = from query in objectList.Descendants("Object")
@@ -120,8 +107,9 @@ namespace AspectMenu
 
                 foreach (Aspect u in aspects)
                 {
-                    uriDict[u.uriScheme] = (u.packageName, u.displayName, u.immersiveApp);
-                    uriList.Add(new Uri(u.uriScheme + ":" + u.parameter + "//"));
+                    Uri tmp = new Uri(u.uriScheme + "://" + u.parameter);
+                    aspectDict[tmp] = u;
+                    uriList.Add(tmp);
                 }
             }
         }
@@ -146,24 +134,21 @@ namespace AspectMenu
         private async void ProcessStartAsync(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
-            LauncherOptions opt = new LauncherOptions()
-            {
-                DisplayApplicationPicker = false
-            };
+            
             Uri u = new Uri(@b.Tag as string);
-            opt.TargetApplicationPackageFamilyName = uriDict[u.Scheme].Item1;
-            ValueSet inputData = new ValueSet();
-            inputData["Test"] = b.Tag.ToString();
-            inputData["docs"] = "hololens.pdf";
-            if (uriDict[u.Scheme].Item3)
+            Aspect info = aspectDict[u];
+            if (info.immersiveApp)
             {
                 //Launch immersive apps not using ForResults
                 var s = await Launcher.LaunchUriAsync(u);
+
             }
             else
             {
                 //Launch other apps using ForResults for better experience
-                LaunchUriResult success = await Launcher.LaunchUriForResultsAsync(u, opt, inputData);
+                LauncherOptions opt = new LauncherOptions();
+                opt.TargetApplicationPackageFamilyName = info.packageName;
+                LaunchUriResult success = await Launcher.LaunchUriForResultsAsync(u, opt);
             }
 
         }
@@ -176,7 +161,7 @@ namespace AspectMenu
                 Button b = new Button();
                 b.Tag = u.AbsoluteUri;
                 b.Click += ProcessStartAsync;
-                b.Content = uriDict[u.Scheme].Item2;
+                b.Content = aspectDict[u].displayName;
                 tmp.Add(b);
             }
             return tmp;
@@ -194,19 +179,12 @@ namespace AspectMenu
                     receivedUri = receivedUri.Substring(receivedUri.IndexOf('/') + 2).ToLower();
                     receivedUri = receivedUri.Remove(receivedUri.Length - 1);
                     readConfig(receivedUri);
-                    for (int i = 0; i < uriList.Count; i++)
-                    {
-                        uriList[i] = new Uri(uriList[i].Scheme + "://" + receivedUri + uriList[i].AbsolutePath);
-                    }
                 }
             }
-
             if(uriList.Count == 0)
             {
                 //If no aspects were found -> object doesn't exist, move to new page to handle it. NYI
-                Frame rootFrame = Window.Current.Content as Frame;
-                rootFrame.Navigate(typeof(ObjectNotFoundPage));
-                Window.Current.Content = rootFrame;
+                this.Frame.Navigate(typeof(ObjectNotFoundPage), null);
             }
             GenerateButtons(uriList);
             
