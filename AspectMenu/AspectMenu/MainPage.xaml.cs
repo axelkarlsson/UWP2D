@@ -82,37 +82,51 @@ namespace AspectMenu
 
         }
 
-        void readConfig(string objectName)
+        async void readConfig(string objectName)
         {
+
             //Change this to somewhere accesible for the user, so it can be updated without recompiling
             objectName = objectName.ToLower();
             string fullPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "cfg.xml");
-            XDocument objectList = XDocument.Load(fullPath);
 
-            var objectData = from query in objectList.Descendants("Object")
-                             where ((string)query.Attribute("name")).ToLower() == objectName
-                             select query;
+            bool fileExists = true;
 
-            
-            var aspects = from query in objectData.Descendants("Aspect")
-                       select new Aspect
-                       {
-                           uriScheme = (string)query.Element("scheme"),
-                           packageName = (string)query.Element("packagename"),
-                           displayName = (string)query.Element("displayname"),
-                           immersiveApp = (bool)query.Element("immersive"),
-                           parameter = (string)query.Element("parameter")
-                       };
-            
-            foreach (Aspect u in aspects)
+            try
             {
-                uriDict[u.uriScheme] = (u.packageName, u.displayName, u.immersiveApp);
-                uriList.Add(new Uri(u.uriScheme + ":" + u.parameter + "//"));
+                StorageFile s = await StorageFile.GetFileFromPathAsync(fullPath);
+            }
+            catch (FileNotFoundException)
+            {
+                fileExists = false;
             }
 
+            if (fileExists)
+            {
+                XDocument objectList = XDocument.Load(fullPath);
+                var objectData = from query in objectList.Descendants("Object")
+                                 where ((string)query.Attribute("name")).ToLower() == objectName
+                                 select query;
 
-            
+
+                var aspects = from query in objectData.Descendants("Aspect")
+                              select new Aspect
+                              {
+                                  uriScheme = (string)query.Element("scheme"),
+                                  packageName = (string)query.Element("packagename"),
+                                  displayName = (string)query.Element("displayname"),
+                                  immersiveApp = (bool)query.Element("immersive"),
+                                  parameter = (string)query.Element("parameter")
+                              };
+
+                foreach (Aspect u in aspects)
+                {
+                    uriDict[u.uriScheme] = (u.packageName, u.displayName, u.immersiveApp);
+                    uriList.Add(new Uri(u.uriScheme + ":" + u.parameter + "//"));
+                }
+            }
         }
+        
+    
 
         private ColumnDefinition CD()
         {
@@ -185,10 +199,14 @@ namespace AspectMenu
                         uriList[i] = new Uri(uriList[i].Scheme + "://" + receivedUri + uriList[i].AbsolutePath);
                     }
                 }
-                else
-                {
-                    readConfig("AT_2");
-                }
+            }
+
+            if(uriList.Count == 0)
+            {
+                //If no aspects were found -> object doesn't exist, move to new page to handle it. NYI
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(ObjectNotFoundPage));
+                Window.Current.Content = rootFrame;
             }
             GenerateButtons(uriList);
             
