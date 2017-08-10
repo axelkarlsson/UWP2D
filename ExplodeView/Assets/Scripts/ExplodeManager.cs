@@ -22,7 +22,7 @@ public class ExplodeManager : MonoBehaviour
             objectName = objectName.Remove(objectName.Length - 1);
             UpdateObject(objectName);
         }
-        UpdateObject("test"); //REMOVE THIS BEFORE PROD
+        UpdateObject("test"); //Remove this before release
     }
 
     // Update is called once per frame

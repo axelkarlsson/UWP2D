@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.System;
 using Windows.Storage;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -71,27 +72,23 @@ namespace AspectMenu
 
         //The key is the Uri, links to Aspect with more info such as displayname, immersive
         private Dictionary<Uri, Aspect> aspectDict = new Dictionary<Uri, Aspect>();
-        public TextObject s = new TextObject { displayText = "Start" };
 
 
 
         public MainPage()
         {
             this.InitializeComponent();
-            DataContext = s;
         }
 
-        async void readConfig(string objectName)
+        void readConfig(string objectName)
         {
             objectName = objectName.ToLower();
             string fullPath = Path.Combine(KnownFolders.CameraRoll.Path, "cfg.xml");
-            var stream = await KnownFolders.CameraRoll.OpenStreamForReadAsync("cfg.xml");
             uriList.Clear();
             
             try
             {
-             
-                XDocument objectList = XDocument.Load(stream);
+                XDocument objectList = XDocument.Load(fullPath);
                 var objectData = from query in objectList.Descendants("Object")
                                     where ((string)query.Attribute("name")).ToLower() == objectName
                                     select query;
@@ -115,14 +112,9 @@ namespace AspectMenu
                 }
                  
             }
-            catch(Exception e)
-            {
-                s.displayText = e.ToString();
-            }
-            
+            catch (Exception) { }
         }
-        
-    
+
 
         private ColumnDefinition CD()
         {
@@ -177,7 +169,6 @@ namespace AspectMenu
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             if (e != null)
             {
                 var eventArgs = e.Parameter as ProtocolActivatedEventArgs;
@@ -186,17 +177,12 @@ namespace AspectMenu
                     string receivedUri = eventArgs.Uri.AbsoluteUri;
                     receivedUri = receivedUri.Substring(receivedUri.IndexOf('/') + 2).ToLower();
                     receivedUri = receivedUri.Remove(receivedUri.Length - 1);
-                    readConfig(receivedUri);
+                    var t = Task.Run(() => readConfig(receivedUri));
+                    t.Wait();
                 }
             }
-            
-            if(uriList.Count == 0)
-            {
-                //If no aspects were found -> object doesn't exist, move to new page to handle it. NYI
-                this.Frame.Navigate(typeof(ObjectNotFoundPage), null);
-            }
             GenerateButtons(uriList);
-            
+
             int RowCounter = 0;
             int ColumnCounter = 0;
             int Rmax = (int)Math.Ceiling(Math.Sqrt(uriList.Count));
@@ -224,8 +210,6 @@ namespace AspectMenu
                 BackGrid.ColumnDefinitions.Add(CD());
             }
 
-            s.displayText = uriList.Count.ToString();
-            
         }
 
         /// <summary>

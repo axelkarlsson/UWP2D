@@ -8,11 +8,9 @@
     mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="BackGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="{Binding displayText}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="7"/>
     </Grid>
 </Page>
 
