@@ -30,8 +30,8 @@ public abstract class ExplodeObject : MonoBehaviour, IInputClickHandler {
             defaultPositions[t] = t.position;
             explodedPositions[t] = ExplodePartPos(t);
         }
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Rigidbody>().useGravity = false;
+        GetComponentInParent<Rigidbody>().isKinematic = true;
+        GetComponentInParent<Rigidbody>().useGravity = false;
     }
 
     //Updates the defaultpositions to their new values

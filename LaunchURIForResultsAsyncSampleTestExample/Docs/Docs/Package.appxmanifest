@@ -22,13 +22,13 @@
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="holoabb-docs" ReturnResults="optional"/>
+          <uap:Protocol Name="holoabb-docs" ReturnResults="optional" />
         </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
-    <uap:Capability Name="picturesLibrary"/>
+    <uap:Capability Name="picturesLibrary" />
   </Capabilities>
 </Package>

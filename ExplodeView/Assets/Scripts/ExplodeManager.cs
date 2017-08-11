@@ -22,8 +22,12 @@ public class ExplodeManager : MonoBehaviour
             objectName = objectName.Remove(objectName.Length - 1);
             UpdateObject(objectName);
         }
-        UpdateObject("test"); //Remove this before release
-    }
+        else
+        {
+            UpdateObject("test"); //Remove this before release
+        }
+
+        }
 
     // Update is called once per frame
     void Update()
@@ -51,26 +55,11 @@ public class ExplodeManager : MonoBehaviour
         { 
             currentObject = objectName;
             DeleteModels();
-            LoadModel(ModelType(objectName));
+            LoadModel(objectName);
         }
 
         updateNextFrame = true;
 
-    }
-
-    private System.Random rnd = new System.Random();
-    private string ModelType(string objectName)
-    {
-        switch (rnd.Next(2))
-        {
-            case 1:
-                return "head";
-            case 2:
-                return "body";
-            case 0:
-            default:
-                return "full";
-        }
     }
 
     private void DeleteModels()
@@ -83,10 +72,25 @@ public class ExplodeManager : MonoBehaviour
 
     public void LoadModel(string model)
     {
+        GameObject newObj = GameObject.Instantiate(explodeModels[0], transform) as GameObject;
+        AddColliders(newObj);
+    }
 
-                GameObject head = GameObject.Instantiate(explodeModels[0], transform) as GameObject;
-                head.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-
+    void AddColliders(GameObject obj)
+    {
+        var renderers = obj.GetComponentsInChildren<MeshRenderer>();
+        foreach(MeshRenderer rend in renderers)
+        {
+            if(rend.GetComponent<MeshCollider>() == null)
+            {
+                rend.gameObject.AddComponent<MeshCollider>();
+            }
+            else
+            {
+                rend.GetComponent<MeshCollider>().enabled = true;
+            }
+                  
+        }
     }
 
     public void UpdatePosition()

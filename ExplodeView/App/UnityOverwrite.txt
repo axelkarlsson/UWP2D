@@ -8,7 +8,7 @@
 ExplodeView.sln: modified
 ExplodeView\App.xaml: BD9F6A765947E339800A1C4320D460D1
 ExplodeView\App.xaml.cs: modified
-ExplodeView\ExplodeView.csproj: F2680BEAA3FD846A5FBDAD8C7346CA07
+ExplodeView\ExplodeView.csproj: 34E9EB83E011084F686673060A8583E5
 ExplodeView\ExplodeView.csproj.user: modified
 ExplodeView\MainPage.xaml: 85506347F1F8C59F92DE3E00D9ABA6B7
 ExplodeView\MainPage.xaml.cs: FA88D9AFF6270B93D8CEF5C86BD9D6CD

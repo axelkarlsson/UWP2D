@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.ComponentModel;
 using Windows.Storage;
+using System.Threading.Tasks;
+using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -41,28 +43,24 @@ namespace Docs
             if(resArgs != null)
             {
                 _operation = resArgs.ProtocolForResultsOperation;
-                string receivedUri = e.Uri.AbsoluteUri;
-                receivedUri = receivedUri.Substring(receivedUri.IndexOf('/') + 2).ToLower();
+                string receivedUri = resArgs.Uri.AbsoluteUri;
+                receivedUri = receivedUri.Substring(receivedUri.IndexOf('/') + 2);
                 receivedUri = receivedUri.Remove(receivedUri.Length - 1);
+                text.displayText = receivedUri;
                 ReadPDF(receivedUri);
             }
         }
 
         async void ReadPDF(string fileName)
         {
-
-            try
+            
+            var folder = KnownFolders.CameraRoll;
+            var pdfFile = await folder.GetFileAsync(fileName);
+            bool success = await Launcher.LaunchFileAsync(pdfFile);
+            if (success)
             {
-                var pdfFile = await KnownFolders.CameraRoll.GetFileAsync(fileName);
-                await Windows.System.Launcher.LaunchFileAsync(pdfFile);
                 _operation.ReportCompleted(new ValueSet());
             }
-            catch (Exception)
-            {
-                text.displayText = "Exception has occured";
-            }
-            
-            
         }
     }
 
